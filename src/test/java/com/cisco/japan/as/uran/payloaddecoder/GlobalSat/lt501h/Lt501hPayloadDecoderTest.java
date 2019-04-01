@@ -53,10 +53,10 @@ public class Lt501hPayloadDecoderTest extends TestCase {
 		// 日時,デコード用文字列(payload_hex),DeviceIdentifyerを入力
 		EncodedPayload test1 = new EncodedPayload(date, "0c1002dbc43d0763737d012264A4989659", "test1");
 		EncodedPayload test2 = new EncodedPayload(date, "0c100295967e08ffb09a02025a5813825c", "test2");
-		EncodedPayload test3 = new EncodedPayload(date, "0c130272cb10575ab647568f3e113c29eda2de0000000022bfc55a",
-				"test3");
-		EncodedPayload test4 = new EncodedPayload(date, "0c070072cb10575ab647568f3e113c29eda2de0000000021b3c55f",
-				"test4");
+//		EncodedPayload test3 = new EncodedPayload(date, "0c130272cb10575ab647568f3e113c29eda2de0000000022bfc55a",
+//				"test3");
+//		EncodedPayload test4 = new EncodedPayload(date, "0c070072cb10575ab647568f3e113c29eda2de0000000021b3c55f",
+//				"test4");
 
 		// リストに追加していく
 		List<EncodedPayload> str = new ArrayList<EncodedPayload>();
