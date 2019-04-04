@@ -45,51 +45,57 @@ public class Lt501hPayloadDecoder implements PayloadDecoder {
 			// payloadStringからpayload_hexを取得
 			String hexStr = payload.getPayloadString();
 
-			if (hexStr.startsWith(ProtocolSummary.TRACKING_REPORT.getCode())) { // protocol:0c1002
+			// payload存在チェック
+			if (hexStr != null && !hexStr.isEmpty()) {
+				if (hexStr.startsWith(ProtocolSummary.TRACKING_REPORT.getCode())) { // protocol:0c1002
 
-				// TrackingReport:peyload_hexを変換
-				TrackingReportBean trBean = new TrackingReportBean();
-				TrackingReport.decodeTrackingReport(payloadObject, hexStr, trBean);
-				decodeInfo = makeDecodeInfo(payloadObject, payload, trBean.getDateTime());
+					// TrackingReport:peyload_hexを変換
+					TrackingReportBean trBean = new TrackingReportBean();
+					TrackingReport.decodeTrackingReport(payloadObject, hexStr, trBean);
+					decodeInfo = makeDecodeInfo(payloadObject, payload, trBean.getDateTime());
 
-			} else if (hexStr.startsWith(ProtocolSummary.TRACKING_REPORT_S.getCode())) { // protocol:8083
+				} else if (hexStr.startsWith(ProtocolSummary.TRACKING_REPORT_S.getCode())) { // protocol:8083
 
-				// TrackingRport(short):peyload_hexを変換
-				TrackingReportShort.decodeTrackingReportShort(payloadObject, hexStr);
-				decodeInfo = makeDecodeInfo(payloadObject, payload, null);
+					// TrackingRport(short):peyload_hexを変換
+					TrackingReportShort.decodeTrackingReportShort(payloadObject, hexStr);
+					decodeInfo = makeDecodeInfo(payloadObject, payload, null);
 
-			} else if (hexStr.startsWith(ProtocolSummary.HELP_REPORT.getCode())) { // protocol:0c0b00
+				} else if (hexStr.startsWith(ProtocolSummary.HELP_REPORT.getCode())) { // protocol:0c0b00
 
-				// HelpReport:peyload_hexを変換
-				HelpRepaortBean hrBean = new HelpRepaortBean();
-				HelpReport.decodeHelpReport(payloadObject, hexStr, hrBean);
-				decodeInfo = makeDecodeInfo(payloadObject, payload, hrBean.getDateTime());
+					// HelpReport:peyload_hexを変換
+					HelpRepaortBean hrBean = new HelpRepaortBean();
+					HelpReport.decodeHelpReport(payloadObject, hexStr, hrBean);
+					decodeInfo = makeDecodeInfo(payloadObject, payload, hrBean.getDateTime());
 
-			} else if (hexStr.startsWith(ProtocolSummary.HELP_REPORT_S.getCode())) { // protocol:8001
+				} else if (hexStr.startsWith(ProtocolSummary.HELP_REPORT_S.getCode())) { // protocol:8001
 
-				// HelpReport(short):peyload_hexを変換
-				HelpReportShort.decodeHelpReportShort(payloadObject, hexStr);
-				decodeInfo = makeDecodeInfo(payloadObject, payload, null);
+					// HelpReport(short):peyload_hexを変換
+					HelpReportShort.decodeHelpReportShort(payloadObject, hexStr);
+					decodeInfo = makeDecodeInfo(payloadObject, payload, null);
 
-			} else if (hexStr.startsWith(ProtocolSummary.BEACON_REPORT_T.getCode())) { // protocol:0c1302
+				} else if (hexStr.startsWith(ProtocolSummary.BEACON_REPORT_T.getCode())) { // protocol:0c1302
 
-				// BeaconTrackingReport:peyload_hexを変換
-				BeaconTrackingReport.decodeBeaconTrackingReportd(payloadObject, hexStr);
-				decodeInfo = makeDecodeInfo(payloadObject, payload, null);
+					// BeaconTrackingReport:peyload_hexを変換
+					BeaconTrackingReport.decodeBeaconTrackingReportd(payloadObject, hexStr);
+					decodeInfo = makeDecodeInfo(payloadObject, payload, null);
 
-			} else if (hexStr.startsWith(ProtocolSummary.BEACON_REPORT_H.getCode())) { // protocol:0c0700
+				} else if (hexStr.startsWith(ProtocolSummary.BEACON_REPORT_H.getCode())) { // protocol:0c0700
 
-				// BeaconHelpReport:peyload_hexを変換
-				BeaconHelpReport.decodeBeaconHelpReport(payloadObject, hexStr);
-				decodeInfo = makeDecodeInfo(payloadObject, payload, null);
+					// BeaconHelpReport:peyload_hexを変換
+					BeaconHelpReport.decodeBeaconHelpReport(payloadObject, hexStr);
+					decodeInfo = makeDecodeInfo(payloadObject, payload, null);
 
-			} else { // unknwonProtocol
+				} else { // unknwonProtocol
 
-				CommonUtils.packingJson(payloadObject, NodeElements.PROTOCOL.getCode(),
-						UnknownStatus.UNKNOWN_PROTOCOL.getCode());
+					CommonUtils.packingJson(payloadObject, NodeElements.PROTOCOL.getCode(),
+							UnknownStatus.UNKNOWN_PROTOCOL.getCode());
+					decodeInfo = makeDecodeInfo(payloadObject, payload, null);
+				}
+			} else { // hexStr = null
+				CommonUtils.packingJson(payloadObject, NodeElements.ERROR.getCode(),
+						UnknownStatus.UNKNOWN_FORMAT.getCode());
 				decodeInfo = makeDecodeInfo(payloadObject, payload, null);
 			}
-
 			decodeInfoList.add(decodeInfo);
 
 		}
