@@ -44,7 +44,7 @@ public class BeaconHelpReport {
 
 			// BeaconID変換
 			if (!BeaconType.BEACON_NOT_AVAILABLE.getTagName().equals(beaconType)
-					|| !UnknownStatus.UNKNOWN_REPORT_TYPE.getCode().equals(beaconType)) {
+					&& !UnknownStatus.UNKNOWN_BEACON_TYPE.getCode().equals(beaconType)) {
 
 				String[] beaconId = BeaconIdDecoder.decodeBeaconId(hexStr.substring(0, 40), beaconType);
 

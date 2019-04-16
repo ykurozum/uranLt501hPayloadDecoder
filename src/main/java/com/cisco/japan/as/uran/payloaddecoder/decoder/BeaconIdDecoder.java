@@ -7,7 +7,7 @@ public class BeaconIdDecoder {
 	/**
 	 * BeaconIdデコード処理
 	 * 
-	 * @param hexStr デコード用文字列
+	 * @param hexStr     デコード用文字列
 	 * @param beaconType BeaconType
 	 * @return beaconId
 	 */
@@ -16,9 +16,9 @@ public class BeaconIdDecoder {
 		String[] beaconId = new String[3];
 
 		if (BeaconType.IBEACON.getTagName().equals(beaconType)) { // iBeacon
-			beaconId[0] = hexStr.substring(0, 31);
+			beaconId[0] = hexStr.substring(0, 32);
 			beaconId[1] = hexStr.substring(32, 36);
-			beaconId[2] = hexStr.substring(37, 40);
+			beaconId[2] = hexStr.substring(36, 40);
 		} else if (BeaconType.EDDYSOTNE_BEACON.getTagName().equals(beaconType)) { // Eddystone Beacon
 			beaconId[0] = hexStr;
 		} else { // ALT Beacon
