@@ -66,7 +66,7 @@ public class Lt501hPayloadDecoderTest extends TestCase {
 //		str.add(test4);
 
 		// encodeを呼び出す(Lt501hPayloadEncoderと同じ処理)
-		List<DecodedPayload> decodeInfoList = target.encode(str);
+		List<DecodedPayload> decodeInfoList = target.decode(str);
 
 		// 結果をリスト分出力
 		for (DecodedPayload decodeInfo : decodeInfoList) {
